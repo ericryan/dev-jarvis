@@ -1,0 +1,147 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.*;
+
+public class JarvisGUIV2 extends JFrame
+{ 
+  private JTextArea gui_Text;
+  private Container gui_Container;
+  private BorderLayout gui_Layout;
+  private JTextField gui_Enter;
+  private JPanel south_Panel;
+  private JPanel mid_Panel;
+  private JTextArea output_Text;
+  
+  private String spacer = new String("                                                                                          ");
+  
+  public JarvisGUIV2 (String title)
+  {
+    super(title);
+    init();
+  }
+  
+  public void init()
+  {
+    setTheme();
+    gui_Container = getContentPane();
+    
+    //TITLE SECTION
+    gui_Text = new JTextArea(" JARVIS                      2.0")
+    {
+      public void paint(Graphics g)
+      {
+        super.paint(g);
+        g.setColor(new Color(14,24,63));
+        //TOP LINE
+        g.drawLine(5,5,330,5);
+        g.drawLine(5,4,330,4);
+        g.drawLine(5,3,330,3);
+        g.drawLine(5,2,330,2);
+        g.drawLine(5,6,330,6);
+        //TITLE ACCENT
+        g.drawLine(5,25,105,25);
+        //BOTTOM LINE
+        g.drawLine(5,30,330,30);
+        g.drawLine(5,31,330,31);
+        g.drawLine(5,32,330,32);
+        g.drawLine(5,33,330,33);
+        g.drawLine(5,34,330,34);
+        //SECOND BOTTOM LINE
+        g.drawLine(5,35,330,35);
+        g.drawLine(5,36,330,36);
+        g.drawLine(5,37,330,37);
+        g.drawLine(5,38,330,38);
+        g.drawLine(5,39,330,39);
+      }
+    };
+    gui_Text.setEditable(false);
+    Font font = new Font("Arial Black", Font.BOLD, 24);
+    gui_Text.setFont(font);
+    
+    //BOTTOM SECTION
+    gui_Enter = new JTextField("");
+    gui_Enter.addActionListener(new ActionListener(){
+      public void actionPerformed(ActionEvent e){
+        JarvisVersion1.input_Phrase(gui_Enter.getText());
+        JarvisVersion1.process_Phrase();
+        JarvisVersion1.clear_List();
+        gui_Enter.setText("");
+        output_Text.setText(JarvisVersion1.output);
+      }
+    });
+      
+    gui_Enter.setColumns(30);
+    gui_Enter.setEditable(true);
+    Font font2 = new Font("Arial Black", Font.BOLD, 10);
+    gui_Enter.setFont(font2);
+    
+    south_Panel = new javax.swing.JPanel()
+    {
+      public void paint(Graphics g)
+      {
+        super.paint(g);
+        g.setColor(new Color(14,24,63));
+        g.drawLine(5,0,330,0);
+        g.drawLine(5,1,330,1);
+        g.drawLine(5,2,330,2);
+        g.drawLine(5,3,330,3);
+        g.drawLine(5,4,330,4);
+        
+        g.drawLine(5,35,330,35);
+        g.drawLine(5,36,330,36);
+        g.drawLine(5,34,330,34);
+        g.drawLine(5,33,330,33);
+        g.drawLine(5,32,330,32);  
+      }
+    };
+    south_Panel.setBackground(Color.BLACK);
+    south_Panel.add(gui_Enter);
+    
+    //OUTPUT PANEL
+    output_Text = new JTextArea("");
+    output_Text.setFont(font2);
+    output_Text.setForeground(new Color(15,138,244));
+    output_Text.setBackground(Color.BLACK);
+    output_Text.setText(JarvisVersion1.output);
+    
+    mid_Panel = new JPanel();
+    mid_Panel.setBackground(Color.BLACK);
+    mid_Panel.add(output_Text, BorderLayout.WEST);
+    
+    //LAYOUT OF GUI
+    gui_Layout = new BorderLayout();
+    gui_Container.setLayout(gui_Layout);
+    gui_Container.add(gui_Text, BorderLayout.NORTH);
+    gui_Container.add(south_Panel, BorderLayout.SOUTH);
+    gui_Container.add(mid_Panel,BorderLayout.CENTER);
+    gui_Container.setBackground(Color.BLACK);
+   
+    setVisible(true);
+    pack();
+    setSize(335,150);
+    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    
+    gui_Text.setBackground(Color.BLACK);
+    gui_Text.setForeground(new Color(15,138,244));
+    gui_Container.setBackground(Color.BLACK);
+  }
+  
+  public void setTheme()
+  {
+    try
+    {
+      String theme = UIManager.getSystemLookAndFeelClassName();
+      UIManager.setLookAndFeel(theme);
+    }
+    catch (Exception e)
+    {
+    }
+  }
+  
+  public static void main(String [] args)
+  {
+    JarvisGUIV2 jar = new JarvisGUIV2("");
+  }
+  
+}
